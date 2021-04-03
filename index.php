@@ -7,10 +7,9 @@
 </head>
 <body>
 <div class="bgimg">
-<h1>Sisäilma-asema</h1>
-<a href="24h.php">
-    <img class="imglink" src="Images/24h.png" width="80" height="80">
-</a>
+<h1>
+<a href="index.php">Sisäilma-asema</a>
+</h1>
 <table id="txtbox">
     <tr>
         <th>
@@ -27,16 +26,15 @@
     <th id="tableheader">Temperature</th>
 </tr>
 <tr>
-    <th id="values">24.5</th>
+    <th id="values"><a id="av" href="24h.php">24.5</a></th>
 </tr>
 </table>
-<br>
 <table id="fronttable">
     <tr>
         <th id="tableheader">Humidity</th>
     </tr>
     <tr>
-        <th id="values">45 %</th>
+    <th id="values"><a id="av" href="24h.php">45 %</a></th>
     </tr>
     </table>
 </div>

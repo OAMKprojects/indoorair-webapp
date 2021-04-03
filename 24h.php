@@ -7,10 +7,9 @@
 </head>
 <body>
 <div class="bgimg">
-<h1>Sisäilma-asema</h1>
-<a href="index.php">
-    <img class="imglink" src="Images/home.png" width="80" height="80">
-</a>
+<h1>
+<a href="index.php">Sisäilma-asema</a>
+</h1>
 <table class="center" id="table24">
 <tr id="tableheader"><th>Time & Date</th><th>Temperature</th><th>Humidity</th></tr>
 <tr><th>Time & Date</th><th>Temperature</th><th>Humidity</th></tr>
