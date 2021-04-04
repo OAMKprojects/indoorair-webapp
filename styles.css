@@ -1,23 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent;
+}
+
 body, html {
     height: 100%;
     margin: 0;
+    font-family: Verdana, sans-serif;
+  }
+
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+#fronttable {
+    margin-top: 2%;
+    margin-left: 25%;
+    font-size: xx-large;
+    width: 270px;
+    background-color: rgba(255,255,255, 0.8);
+  }
+
+  #table24 {
+    margin-top: 2%;
+    font-size: 14px;
+    width: 700px;
+    border: 4px solid black;
+    background-color: rgba(255,255,255, 0.8);
+  }
+
+  #txtbox {
+    float: right;
+    margin-right: 30%;
+    border: 4px solid black;
+    width: 560px;
+    height: 500px;
+    margin-top: 2%;
+    background-color: rgba(255,255,255, 0.8);
   }
   
-  .bg {
-    /* The image used */
-    background-image: url("perfect.png");
-  
-    /* Full height */
-    height: 100%; 
-  
-    /* Center and scale the image nicely */
+  .bgimg {
+    background-image: url("Images/perfect.png");
+    width: 100%;
+    height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
 
 h1 {
-  color: black;
+  font-size: 70px;
+  color: white;
   position: sticky;
   text-align: center;
+  padding-top: 30px;
+  padding-bottom: 15px;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: verdana; color: white;
+  width: auto;
+}
+
+h2 {
+  padding-left: 25%;
+  color: white;
+}
+
+#values {
+  font-size: 220%;
+  border: 4px dashed darkred;
+  height: 170px;
+  vertical-align: middle;
+}
+
+#tableheader {
+  font-size: xx-large;
+  border: 4px solid black;
+}
+
+a {
+  text-decoration: none;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  font-family: verdana; color: white;
+}
+
+.imglink {
+  margin-left: 50%;
+}
+
+#av {
+  color: black;
+  text-shadow: none;
 }
