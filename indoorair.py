@@ -36,7 +36,8 @@ def index():
 
 @app.route('/24h')
 def history():
-    return render_template("24h.html")
+    dbvalues = load_db()
+    return render_template("24h.html", posts = dbvalues)
 
 if __name__ == '__main__':
     #update_db()
