@@ -3,21 +3,17 @@
 <head>
 <link rel="stylesheet" href="{{ url_for('static', filename= 'styles.css') }}"/>
 <script src="javascript.js"></script> 
-<title>Sisäilma-asema</title>
+<title>Indoor Air</title>
 </head>
 <body>
 <div class="bgimg">
 <h1>
-    <a href="{{ url_for('index') }}">Sisäilma-asema</a>
+    <a href="{{ url_for('index') }}">Indoor Air</a>
 </h1>
 <table id="txtbox">
     <tr>
         <th>
-            <?php
-            $myfile = fopen("perfect.txt", "r") or die("Unable to open file!");
-            echo fread($myfile,filesize("perfect.txt"));
-            fclose($myfile);
-            ?>
+            
         </th>
     </tr>
 </table>
@@ -26,7 +22,11 @@
     <th id="tableheader">Temperature</th>
 </tr>
 <tr>
-    <th id="values"><a href="{{ url_for('history') }}">24.5</a></th>
+    <th id="values" ><a href="{{ url_for('history') }}">
+        {%for post in temps%}
+        {{post.temperature}} °C
+        {% endfor %}
+    </a></th>
 </tr>
 </table>
 <table id="fronttable">
@@ -34,7 +34,11 @@
         <th id="tableheader">Humidity</th>
     </tr>
     <tr>
-    <th id="values"><a href="{{ url_for('history') }}">45 %</a></th>
+        <th id="values" ><a href="{{ url_for('history') }}">
+            {%for post in humis%}
+            {{post.humidity}} %
+            {% endfor %}
+        </a></th>
     </tr>
     </table>
 </div>

@@ -24,19 +24,33 @@ def update_db():
 
 def load_db():
     conn = get_db_connection()
-    result = conn.execute("SELECT * FROM indoorair;").fetchall()
+    result = conn.execute("SELECT * FROM indoorair ORDER BY id DESC;").fetchall()
+    conn.close()
+    return result
 
+def load_temp(): #Haetaan viimeisin lämpötila
+    conn = get_db_connection()
+    result = conn.execute("SELECT temperature FROM indoorair ORDER BY id DESC LIMIT 1;").fetchall()
+    conn.close()
+    return result
+
+def load_hum(): #Haetaan viimeisin kosteus
+    conn = get_db_connection()
+    result = conn.execute("SELECT humidity FROM indoorair ORDER BY id DESC LIMIT 1;").fetchall()
     conn.close()
     return result
 
 @app.route('/')
 def index():
     dbvalues = load_db()
-    return render_template("index.html", posts = dbvalues)
+    tem_values = load_temp()
+    hum_values = load_hum()
+    return render_template("index.html", posts = dbvalues, temps = tem_values, humis = hum_values)
 
-@app.route('/24h')
+@app.route('/24h') #metodi jolla haetaan tietokannan tiedot 
 def history():
-    return render_template("24h.html")
+    dbvalues = load_db()
+    return render_template("24h.html", posts = dbvalues)
 
 if __name__ == '__main__':
     #update_db()
