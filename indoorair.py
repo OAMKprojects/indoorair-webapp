@@ -23,7 +23,7 @@ def update_db():
     conn.close()
 
 def print_text():
-    with open("static/perfect.txt", "r") as file:
+    with open("static/perfect.txt", "r", encoding="utf-8") as file:
         content = file.read()
         return content
 
