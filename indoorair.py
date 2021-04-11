@@ -22,6 +22,11 @@ def update_db():
     conn.commit()
     conn.close()
 
+def print_text():
+    with open("static/perfect.txt", "r", encoding="utf-8") as file:
+        content = file.read()
+        return content
+
 def load_db():
     conn = get_db_connection()
     result = conn.execute("SELECT * FROM indoorair ORDER BY id DESC;").fetchall()
@@ -42,16 +47,15 @@ def load_hum(): #Haetaan viimeisin kosteus
 
 @app.route('/')
 def index():
-    dbvalues = load_db()
     tem_values = load_temp()
     hum_values = load_hum()
-    return render_template("index.html", posts = dbvalues, temps = tem_values, humis = hum_values)
+    content = print_text()
+    return render_template("index.html", content = content, temps = tem_values, humis = hum_values)
 
-@app.route('/24h') #metodi jolla haetaan tietokannan tiedot 
+@app.route('/24h') 
 def history():
     dbvalues = load_db()
     return render_template("24h.html", posts = dbvalues)
 
 if __name__ == '__main__':
-    #update_db()
     app.run(debug=True)
