@@ -1,5 +1,7 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, jsonify
+import json
 import sqlite3
+import random
 
 app = Flask(__name__)
 
@@ -59,6 +61,13 @@ def load_hum(): #Haetaan viimeisin kosteus
     result = conn.execute("SELECT humidity FROM indoorair ORDER BY id DESC LIMIT 1;").fetchall()
     conn.close()
     return result
+
+@app.route('/reload_db', methods=['GET'])
+def reload_db():
+    conn = get_db_connection()
+    result = conn.execute("SELECT temperature,humidity FROM indoorair ORDER BY id DESC LIMIT 10;").fetchall()
+    conn.close()
+    return jsonify(list(result[random.randint(0, 10)]))
 
 @app.route('/')
 def index():

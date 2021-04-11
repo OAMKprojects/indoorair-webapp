@@ -2,10 +2,28 @@
 <html>
 <head>
 <link rel="stylesheet" href="{{ url_for('static', filename= 'styles.css') }}"/>
-<script src="javascript.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+    function reload_database()
+    {
+        $.ajax({
+        type : "GET",
+        url : '/reload_db',
+        dataType: "json",
+        contentType: 'application/json;charset=UTF-8',
+        success: function (data) {
+                console.log(data);
+                $('#temp_val').html(data[0] + " °C");
+                $('#hum_val').html(data[1] + " %");
+            }
+        });
+        setTimeout(reload_database, 2000);
+    }
+    </script>
+</script>
 <title>Indoor Air</title>
 </head>
-<body>
+<body onload="reload_database()">
 <div class="bgimg">
 <h1>
     <a href="{{ url_for('index') }}">Indoor Air</a>
@@ -20,7 +38,7 @@
     <th id="tableheader">Temperature</th>
 </tr>
 <tr>
-    <th id="values" ><a href="{{ url_for('history') }}">
+    <th id="values_temp"><a href="{{ url_for('history') }}" id="temp_val">
         {%for post in temps%}
         {{post.temperature}} °C
         {% endfor %}
@@ -32,7 +50,7 @@
         <th id="tableheader">Humidity</th>
     </tr>
     <tr>
-        <th id="values" ><a href="{{ url_for('history') }}">
+        <th id="values_hum" ><a href="{{ url_for('history') }}" id="hum_val">
             {%for post in humis%}
             {{post.humidity}} %
             {% endfor %}
