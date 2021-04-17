@@ -82,6 +82,17 @@ body, html {
     background-size: cover;
   }
 
+  .charts {
+    width: 60%;
+    height: 300px;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+
 h1 {
   font-size: 70px;
   color: white;
