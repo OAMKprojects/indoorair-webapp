@@ -12,25 +12,26 @@
         dataType: "json",
         contentType: 'application/json;charset=UTF-8',
         success: function (data) {
-                console.log(data);
-                $('#temp_val').html(data[0] + " °C");
-                $('#hum_val').html(data[1] + " %");
+                $('#temp_val').html(data["temperature"] + " °C");
+                $('#hum_val').html(data["humidity"] + " %");
+                $('#text').text(data["text"]);
+                $('#background').removeClass().addClass(data["image"]);
             }
         });
         setTimeout(reload_database, 2000);
-    }
+    }s
     </script>
 </script>
 <title>Indoor Air</title>
 </head>
-<body onload="reload_database()">
-<div class="bgimg">
+<body onload="reload_database()" href="{{ url_for('index') }}">
+<div id="background" class="{{ image_class }}">
 <h1>
-    <a href="{{ url_for('index') }}">Indoor Air</a>
+    <a>Indoor Air</a>
 </h1>
 <table id="txtbox">
-    <tr><td>
-        {{content}}</td>
+    <tr>
+        <td id="text">{{content}}</td>
     </tr>
 </table>
 <table id="fronttable">
