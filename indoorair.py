@@ -107,10 +107,5 @@ def index():
     text, image = get_text_and_pic(24, 30)
     return render_template("index.html", content = text, temps = tem_values, humis = hum_values, image_class = image)
 
-@app.route('/24h') 
-def history():
-    dbvalues = load_db()
-    return render_template("24h.html", posts = dbvalues)
-
 if __name__ == '__main__':
     app.run(debug=True)
