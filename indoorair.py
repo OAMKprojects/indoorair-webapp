@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, jsonify
+from flask import Flask, render_template, url_for, jsonify, request
 import json
 import sqlite3
 import random
@@ -63,6 +63,29 @@ def get_text_and_pic(temp, hum):
         text = file.read()
         image = data[val][1]
         return text, image
+
+@app.route('/load_db_val', methods=['POST'])
+def load_db_val():
+    data = request.get_json(force=True)
+    datatype = data['datatype']
+    conn = get_db_connection()
+    result = conn.execute("SELECT " + datatype + ", strftime('%H', time) as minute FROM indoorair ORDER BY time;").fetchall()
+    conn.close()
+
+    ret_val = []
+    list_th = list(result)
+    for val in list_th:
+        ret_val.append({ 'y' : val[datatype], 'x' : int(val['minute'])})
+
+    return jsonify({datatype : ret_val})
+
+@app.route('/temp_chart')
+def temp_chart():
+    return render_template("chart_temp.html")
+
+@app.route('/hum_chart')
+def hum_chart():
+    return render_template("chart_hum.html")
 
 @app.route('/reload_db', methods=['GET'])
 def reload_db():
