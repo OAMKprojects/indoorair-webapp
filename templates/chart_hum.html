@@ -17,8 +17,11 @@
 
                             var chart = new CanvasJS.Chart("hum_chart", {
                                 title : {
-                                    text : "Humidity last 24 hours"
+                                    text : "Humidity last 24 hours",
+                                    fontColor: "black",
                                 },
+                                backgroundColor:  "rgba(225,150,150,0.670)",
+                                textFamily: "verdana",
                                 data : [{
                                     type : "line",
                                     dataPoints : data['humidity']
@@ -27,7 +30,7 @@
                                 suffix: " %"
                                 },
                                 axisX: {
-                                prefix: "klo "
+                                prefix: "Clock "
                                 } 
                             });
                             chart.render();
@@ -38,6 +41,13 @@
         <title>Indoor Air</title>
     </head>
     <body onload="load_chart_data()">
+        <div id="background1">
+        <div class="bgimg">
+           <h1>
+               <a href="{{ url_for('index') }}">Indoor Air</a>
+           </h1>
          <div id="hum_chart" class="charts"></div>
+        </div>
+    </div>
     </body>
 </html> 

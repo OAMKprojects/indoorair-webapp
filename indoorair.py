@@ -53,11 +53,11 @@ def get_text_and_pic(temp, hum):
         ['static/perfect.txt', 'bgimg_perfect']
     ]
 
-    if temp > 26 and hum > 50:
+    if temp > 26:
         val = 0
     elif temp < 18:
         val = 1
-    elif hum < 20:
+    elif hum < 25:
         val = 2
     else:
         val = 3
@@ -70,15 +70,16 @@ def get_text_and_pic(temp, hum):
 @app.route('/load_db_val', methods=['POST'])
 def load_db_val():
     data = request.get_json(force=True)
-    datatype = data['datatype'];
+    datatype = data['datatype']
     conn = get_db_connection()
-    result = conn.execute("SELECT " + datatype + ", strftime('%H', time) as minute FROM indoorair ORDER BY time;").fetchall()
+    #result = conn.execute("SELECT " + datatype + ", strftime('%H', time) as minute FROM indoorair ORDER BY time;").fetchall()
+    result = conn.execute("SELECT " + datatype + ", time as minute FROM indoorair WHERE datetime(time) >= datetime('now', '-3 hour') ORDER BY time;").fetchall()
     conn.close()
 
     ret_val = []
     list_th = list(result)
     for val in list_th:
-        ret_val.append({ 'y' : val[datatype], 'x' : int(val['minute'])});
+        ret_val.append({ 'y' : val[datatype], 'x' : val['minute']})
 
     return jsonify({datatype : ret_val})
 
@@ -93,10 +94,10 @@ def hum_chart():
 @app.route('/reload_db', methods=['GET'])
 def reload_db():
     conn = get_db_connection()
-    result = conn.execute("SELECT temperature,humidity FROM indoorair ORDER BY id DESC LIMIT 10;").fetchall()
+    result = conn.execute("SELECT temperature,humidity FROM indoorair ORDER BY id DESC LIMIT 1;").fetchall()
     conn.close()
 
-    list_th = list(result[random.randint(0, 9)])
+    list_th = list(result[0])
     temp = list_th[0]
     hum = list_th[1]
     text, image = get_text_and_pic(temp, hum)
