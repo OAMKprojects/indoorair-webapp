@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'styles.css') }}"/>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <script type=text/javascript>
+                function load_chart_data()
+                {
+                    $.ajax({
+                    type : "POST",
+                    url : "{{ url_for('load_db_val') }}",
+                    dataType: "json",
+                    contentType: "application/json; charset=UTF-8",
+                    data : JSON.stringify({"datatype" : "humidity"}),
+                    success: function (data) {
+
+                            var chart = new CanvasJS.Chart("hum_chart", {
+                                title : {
+                                    text : "Humidity last 24 hours",
+                                    fontColor: "black",
+                                },
+                                backgroundColor:  "rgba(225,150,150,0.670)",
+                                textFamily: "verdana",
+                                data : [{
+                                    type : "line",
+                                    dataPoints : data['humidity']
+                                }],
+                                axisY: {
+                                suffix: " %"
+                                },
+                                axisX: {
+                                prefix: "Clock "
+                                } 
+                            });
+                            chart.render();
+                        }
+                    });
+                }
+          </script>
+        <title>Indoor Air</title>
+    </head>
+    <body onload="load_chart_data()">
+        <div id="background1">
+        <div class="bgimg">
+           <h1>
+               <a href="{{ url_for('index') }}">Indoor Air</a>
+           </h1>
+         <div id="hum_chart" class="charts"></div>
+        </div>
+    </div>
+    </body>
+</html> 
