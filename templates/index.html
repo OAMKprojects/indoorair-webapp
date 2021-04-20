@@ -41,7 +41,7 @@
     <th id="tableheader">Temperature</th>
 </tr>
 <tr>
-    <th id="values"><a href="{{ url_for('history') }}" id="temp_val">
+    <th id="values"><a href="{{ url_for('temp_chart') }}" id="temp_val">
         {%for post in temps%}
         {{post.temperature}} °C
         {% endfor %}
@@ -53,7 +53,7 @@
         <th id="tableheader">Humidity</th>
     </tr>
     <tr>
-        <th id="values"><a href="{{ url_for('history') }}" id="hum_val">
+        <th id="values"><a href="{{ url_for('hum_chart') }}" id="hum_val">
             {%for post in humis%}
             {{post.humidity}} %
             {% endfor %}
