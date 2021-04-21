@@ -50,19 +50,23 @@ def get_text_and_pic(temp, hum):
         ['static/perfect.txt', 'bgimg_perfect']
     ]
 
-    if temp > 26:
+    if temp > 26 and hum > 70:
+        val = 0
+    elif hum > 70:
         val = 0
     elif temp < 18:
         val = 1
-    elif hum < 25:
+    elif hum < 30:
         val = 2
     else:
         val = 3
 
     with open(data[val][0], "r", encoding="utf-8") as file:
         text = file.read()
+        teksti = ' '.join([str(elem) for elem in text])
+        teksti = text.replace('\n', ' ')
         image = data[val][1]
-        return text, image
+        return teksti, image
 
 @app.route('/load_db_val', methods=['POST'])
 def load_db_val():
