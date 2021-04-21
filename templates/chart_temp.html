@@ -4,49 +4,21 @@
         <link rel="stylesheet" href="{{ url_for('static', filename= 'styles.css') }}"/>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-            <script type=text/javascript>
-                function load_chart_data()
-                {
-                    $.ajax({
-                    type : "POST",
-                    url : "{{ url_for('load_db_val') }}",
-                    dataType: "json",
-                    contentType: "application/json; charset=UTF-8",
-                    data : JSON.stringify({"datatype" : "temperature"}),
-                    success: function (data) {
-
-                            var chart = new CanvasJS.Chart("temp_chart", {
-
-                                height: 400,
-                                title : {
-                                    text : "Temperature last 24 hours",
-                                    fontColor: "grey",
-                                },
-                                data : [{
-                                    type : "line",
-                                    dataPoints : data['temperature']
-                                }],
-                                axisY: {
-                                suffix: " C"
-                                },
-                                axisX: {
-                                prefix: "Clock "
-                                } 
-                            });
-                            chart.render();
-                        }
-                    });
-                }
-          </script>
+        <script src="{{url_for('static', filename='scripts.js')}}"></script>
         <title>Indoor Air</title>
     </head>
-    <body onload="load_chart_data()">
+    <body onload="load_chart_data('temperature', ' °C', 0, 50, 24)">
         <div id="background1">
         <div class="bgimg">
            <h1>
                <a href="{{ url_for('index') }}">Indoor Air</a>
            </h1>
-         <div id="temp_chart" class="charts"></div>
+           <div class="button_wrap">
+                <Button class="charts_button" onclick="load_chart_data('temperature', ' °C', 0, 50, 24)">Temp last 24 h</Button>
+                <Button class="charts_button" onclick="load_chart_data('temperature', ' °C', 0, 50, 1)">Temp last hour</Button>
+           </div>
+           <br>
+           <div id="chart" class="charts"></div>
         </div>
     </div>
     </body>

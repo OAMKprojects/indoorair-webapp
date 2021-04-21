@@ -11,39 +11,23 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-def update_db():
-    conn = get_db_connection()
-    conn.execute("CREATE TABLE IF NOT EXISTS indoorair"
-                 "(id INTEGER PRIMARY KEY AUTOINCREMENT"
-                 ", temperature DECIMAL(3, 1)"
-                 ", humidity DECIMAL(3, 1)"
-                 ", time ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP);").fetchall()
-
-    for i in range(24):
-        time_stamp = datetime(2021, 4, 17, i, 0, 0)
-        conn.execute("INSERT INTO indoorair(temperature, humidity, time) VALUES(?, ?, ?);", \
-                    (random.randint(10, 30), random.randint(15, 70), time_stamp))
-
-    conn.commit()
-    conn.close()
-
 def load_db():
     conn = get_db_connection()
     result = conn.execute("SELECT * FROM indoorair ORDER BY id DESC;").fetchall()
     conn.close()
-    return result
+    return list(result[0])[0]
 
 def load_temp(): #Haetaan viimeisin lämpötila
     conn = get_db_connection()
     result = conn.execute("SELECT temperature FROM indoorair ORDER BY id DESC LIMIT 1;").fetchall()
     conn.close()
-    return result
+    return list(result[0])[0]
 
 def load_hum(): #Haetaan viimeisin kosteus
     conn = get_db_connection()
     result = conn.execute("SELECT humidity FROM indoorair ORDER BY id DESC LIMIT 1;").fetchall()
     conn.close()
-    return result
+    return list(result[0])[0]
 
 def get_text_and_pic(temp, hum):
     data = [
@@ -72,14 +56,13 @@ def load_db_val():
     data = request.get_json(force=True)
     datatype = data['datatype']
     conn = get_db_connection()
-    #result = conn.execute("SELECT " + datatype + ", strftime('%H', time) as minute FROM indoorair ORDER BY time;").fetchall()
-    result = conn.execute("SELECT " + datatype + ", time as minute FROM indoorair WHERE datetime(time) >= datetime('now', '-3 hour') ORDER BY time;").fetchall()
+    result = conn.execute("SELECT " + datatype + ", datetime(time, 'localtime') as time FROM indoorair WHERE time >= datetime('now', '-24 Hour') ORDER BY time;").fetchall()
     conn.close()
 
     ret_val = []
     list_th = list(result)
     for val in list_th:
-        ret_val.append({ 'y' : val[datatype], 'x' : val['minute']})
+        ret_val.append({ 'y' : val[datatype], 'x' : val['time']})
 
     return jsonify({datatype : ret_val})
 
@@ -106,11 +89,10 @@ def reload_db():
 
 @app.route('/')
 def index():
-    #update_db()
-    tem_values = load_temp()
-    hum_values = load_hum()
-    text, image = get_text_and_pic(24, 30)
-    return render_template("index.html", content = text, temps = tem_values, humis = hum_values, image_class = image)
+    tem_value = load_temp()
+    hum_value = load_hum()
+    text, image = get_text_and_pic(tem_value, hum_value)
+    return render_template("index.html", content = text, temps = tem_value, humis = hum_value, image_class = image)
 
 @app.route('/24h') 
 def history():
