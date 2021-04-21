@@ -16,10 +16,11 @@
                     success: function (data) {
 
                             var chart = new CanvasJS.Chart("temp_chart", {
-                                height: 400,
+                                height: 400,                                
                                 title : {
                                     text : "Temperature last 24 hours",
                                     fontColor: "black",
+                                    margin: 10,
                                 },
                                 backgroundColor:  "rgba(255, 255, 255, 0.8)",
                                 textFamily: "verdana",
@@ -47,7 +48,7 @@
            <h1>
                <a href="{{ url_for('index') }}">Indoor Air</a>
            </h1>
-           <br>
+           <br>           
          <div id="temp_chart" class="charts"></div>
         </div>
     </div>

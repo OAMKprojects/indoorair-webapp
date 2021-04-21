@@ -72,6 +72,8 @@ body, html {
   }
 
   #txtbox {
+    text-align: center;
+    table-layout: fixed;
     float: right;
     margin-right: 20%;
     border: 2px dashed rgb(12, 12, 12);
@@ -114,12 +116,6 @@ h1 {
   font-size: xx-large; 
   text-shadow: -2px 0 rgb(207, 207, 207), 0 2px rgb(63, 62, 62), 2px 0 rgb(53, 52, 52), 0 -2px black;
   font-family: verdana; color: rgb(255, 255, 255);
-}
-
-.hum_chart {
-  text-shadow: -2px 0 rgb(207, 207, 207), 0 2px rgb(63, 62, 62), 2px 0 rgb(175, 175, 175), 0 -2px black;
-  font-family: verdana; color: rgb(255, 255, 255);
-
 }
 
 a {
