@@ -14,8 +14,8 @@
                <a href="{{ url_for('index') }}">Indoor Air</a>
            </h1>
            <div class="button_wrap">
-                <Button class="charts_button" onclick="load_chart_data('temperature', ' °C', 0, 50, 24)">Temp last 24 h</Button>
-                <Button class="charts_button" onclick="load_chart_data('temperature', ' °C', 0, 50, 1)">Temp last hour</Button>
+                <Button class="charts_button" onclick="load_chart_data('temperature', ' °C', 0, 50, 24)">24h temperature</Button>
+                <Button class="charts_button" onclick="load_chart_data('temperature', ' °C', 0, 50, 1)"> Last hour temperature</Button>
            </div>
            <br>
            <div id="chart" class="charts"></div>

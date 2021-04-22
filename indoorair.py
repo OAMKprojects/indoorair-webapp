@@ -29,7 +29,7 @@ def load_hum(): #Haetaan viimeisin kosteus
     conn.close()
     return list(result[0])[0]
 
-def get_text_and_pic(temp, hum):
+def get_text_and_pic(temp, hum): #lukemien mukaan asetetaan tausta ja teksti
     data = [
         ['static/too_hot_and_wet.txt', 'bgimg_too_hot'],
         ['static/too_cold.txt', 'bgimg_too_cold'],
@@ -37,7 +37,7 @@ def get_text_and_pic(temp, hum):
         ['static/perfect.txt', 'bgimg_perfect']
     ]
 
-    if temp > 26 and hum > 70:
+    if temp > 26 and hum >26:
         val = 0
     elif hum > 70:
         val = 0
@@ -55,7 +55,7 @@ def get_text_and_pic(temp, hum):
         image = data[val][1]
         return teksti, image
 
-@app.route('/load_db_val', methods=['POST'])
+@app.route('/load_db_val', methods=['POST']) #haetaan graafia varten lukemat tietokannasta
 def load_db_val():
     data = request.get_json(force=True)
     datatype = data['datatype']
