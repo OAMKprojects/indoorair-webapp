@@ -14,8 +14,8 @@
                <a href="{{ url_for('index') }}">Indoor Air</a>
             </h1>
             <div class="button_wrap">
-            <Button class="charts_button" onclick="load_chart_data('humidity', ' %', 0, 100, 24)">Humidity last 24 h</Button>
-            <Button class="charts_button" onclick="load_chart_data('humidity', ' %', 0, 100, 1)">Humidity last hour</Button>
+                <Button class="charts_button" onclick="load_chart_data('humidity', ' %', 0, 100, 24)">24h humidity</Button>
+                <Button class="charts_button" onclick="load_chart_data('humidity', ' %', 0, 100, 1)">Last hour humidity</Button>
             </div>
             <br>
             <div id="chart" class="charts"></div>

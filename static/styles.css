@@ -98,9 +98,15 @@ body, html {
   }
 
   .charts_button {
-    background-color: brown;
-    font-size: 50px;
+    background-color: none;
+    font-size: 30px;
+    text-decoration: underline;
     display: inline-block;
+    border: none;
+    text-shadow: -2px 0 rgb(207, 207, 207), 0 2px rgb(63, 62, 62), 2px 0 rgb(175, 175, 175), 0 -2px black;
+    font-family: verdana; color: rgb(240, 240, 240);
+    border: 2px dashed rgb(12, 12, 12);
+    background-color: rgba(255, 255, 255, 0.5);
   }
 
   .button_wrap {
@@ -109,6 +115,7 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%);
+    
   }
 
 h1 {

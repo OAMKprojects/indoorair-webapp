@@ -39,7 +39,7 @@ function load_chart_data(data_type, sufix, min_y, max_y, hours)
             var chart = new CanvasJS.Chart("chart", {
                 height: 400,
                 title : {
-                    text : data_type + " last 24 hours",
+                    text : data_type,
                     fontColor: "grey"
                 },
                 data : [{
