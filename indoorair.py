@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, jsonify, request
 from datetime import datetime
+import sys
 import json
 import sqlite3
 import random
@@ -7,7 +8,7 @@ import random
 app = Flask(__name__)
 
 def get_db_connection():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('indoorair.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -99,4 +100,5 @@ def index():
     return render_template("index.html", content = text, temps = tem_value, humis = hum_value, image_class = image)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    ip_port = sys.argv[1:][0]
+    app.run(host=ip_port, debug=True)
